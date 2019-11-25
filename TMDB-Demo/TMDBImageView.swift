@@ -10,14 +10,4 @@ import UIKit
 
 class TMDBImageView: UIImageView, CacheableImageView {
     var imageURL: String?
-
-    var isLoading: Bool = false {
-        didSet {
-            setViewState()
-        }
-    }
-
-    func setViewState() {
-
-    }
 }

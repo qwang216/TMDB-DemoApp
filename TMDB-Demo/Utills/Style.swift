@@ -60,9 +60,18 @@ extension UIStackView {
 // MARK: - ImageView
 
 /// reuseable closure for imageview. By default has a image place holder
-let placeHolderImageView: (UIImage?) -> UIImageView = { image in
+let PosterImageView: (UIImage?) -> TMDBImageView = { image in
     let validImage = image ?? UIImage(named: "imagePlaceHolder")
-    let iv = UIImageView(image: validImage)
+    let iv = TMDBImageView(frame: .zero)
+    iv.image = validImage
     iv.contentMode = .scaleAspectFit
     return iv
+}
+
+// MARK: - Activity Indicator
+
+let activityIndicator: () -> UIActivityIndicatorView = {
+    let activityView = UIActivityIndicatorView(style: .whiteLarge)
+    activityView.startAnimating()
+    return activityView
 }

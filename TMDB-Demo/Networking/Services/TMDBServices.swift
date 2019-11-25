@@ -14,13 +14,12 @@ protocol TMDBServiceable {
 
 class TMDBService: TMDBServiceable {
     func fetchMovieInfo(_ term: String, completion: @escaping ((Result<[Movie], TMDBServiceError>) -> Void)) {
-        guard let encodedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else {
-            completion(.failure(.encodeSearchTermError(term)))
-            return
-        }
-//        let encodedTerm = term
+//        guard let encodedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else {
+//            completion(.failure(.encodeSearchTermError(term)))
+//            return
+//        }
 
-        let movieEndPoint = GetMovieInfo(token: TMDBToken(), encodedSearchTerm: encodedTerm)
+        let movieEndPoint = GetMovieInfo(searchTerm: term)
         movieEndPoint.mapExecuteRequest(objectType: MovieQuery.self) { (result) in
             switch result {
             case .success(let query):

@@ -8,9 +8,10 @@
 
 import Foundation
 protocol Executable: ResponseMapper {
-    var method: HTTPMethod { get }
+    var relativePath: String { set get }
+    var queryItems: [URLQueryItem]? { get }
     var baseURL: String { get }
-    var relativePath: String { get }
+    var method: HTTPMethod { get }
     var body: JSON? { get }
     var header: HTTPHeader? { get }
     func execute(session: URLSession, completion: @escaping (Result<Data, APIError>) -> Void )
@@ -22,8 +23,16 @@ extension Executable {
         return ""
     }
 
+    var queryItems: [URLQueryItem]? {
+        return nil
+    }
+
     var baseURL: String {
-        return "​https://api.themoviedb.org/3"
+        return "​api.themoviedb.org"
+    }
+
+    var scheme: String {
+        return "https"
     }
 
     var method: HTTPMethod {
@@ -38,15 +47,23 @@ extension Executable {
         return nil
     }
 
-    var absolutePath: String {
-        return baseURL + relativePath
+    var url: URL? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = scheme
+        urlComponents.host = baseURL
+        urlComponents.path = relativePath
+        if let items = queryItems {
+            urlComponents.queryItems = items
+        }
+        return urlComponents.url
     }
 
     func execute(session: URLSession = .shared, completion: @escaping (Result<Data, APIError>) -> Void ) {
-        guard let url = URL(string: absolutePath) else {
-            completion(.failure(.invalidURL(absolutePath)))
+//        let urlpath = "https://api.themoviedb.org/3/search/movie?api_key=2a61185ef6a27f400fd92820ad9e8537&query=Harry%20Potter"
+        guard let validURL = url else {
+            completion(.failure(.invalidURL("\(url?.absoluteString ?? "inavlid url")")))
             return }
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: validURL)
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = header
 

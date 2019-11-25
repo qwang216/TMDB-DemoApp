@@ -14,6 +14,7 @@ class MovieSearchController: UIViewController {
     private var searchController: UISearchController? {
         didSet {
             navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
         }
     }
 
@@ -55,6 +56,10 @@ extension MovieSearchController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
 }
 
 extension MovieSearchController: UISearchBarDelegate {
@@ -66,11 +71,10 @@ extension MovieSearchController: UISearchBarDelegate {
 
 extension MovieSearchController: MovieViewModelDelegate {
     func loadingData() {
-        print("Loading Data")
+
     }
 
     func viewModelDidFinishLoading() {
-        print("Done Loading")
         tableView.reloadData()
     }
 

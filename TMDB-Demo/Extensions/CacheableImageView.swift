@@ -8,36 +8,32 @@
 
 import UIKit
 
+/// Will cache image if image url is successful otherwise set to a default image
 protocol CacheableImageView: class {
     var imageURL: String? { get set }
-    var isLoading: Bool { get set }
 }
 
 let imageCache = NSCache<NSString, UIImage>()
 extension CacheableImageView where Self: UIImageView {
     func fetchImage(url: String) {
-        isLoading = true
         let nsURLString = url as NSString
         imageURL = url
-        image = nil
+        image = UIImage(named: "imagePlaceHolder")
 
         if let cachedImage = imageCache.object(forKey: nsURLString) {
-            isLoading = false
             self.image = cachedImage
             return
         }
-        let fetcher = GetMoviePosterImage(url: url)
-        fetcher.execute { [weak self] (result) in
-            self?.isLoading = false
-            switch result {
-            case .success(let data):
-                guard self?.imageURL == url, let validImage = UIImage(data: data) else { return }
-                imageCache.setObject(validImage, forKey: nsURLString)
-                self?.image = validImage
-            case .failure(let err):
-                print("loading Image error: \(err.localizedDescription)")
-                self?.image = UIImage(named: "imagePlaceHolder")
-            }
+        guard let url = URL(string: url) else {
+            return
         }
+        URLSession.shared.dataTask(with: url) { (data, response, err) in
+            guard let validData = data, let validImage = UIImage(data: validData) else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.image = validImage
+            }
+        }.resume()
     }
 }

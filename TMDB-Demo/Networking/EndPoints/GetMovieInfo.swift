@@ -9,11 +9,11 @@
 import Foundation
 
 struct GetMovieInfo: Executable, DecodableObject, DecodableMapper {
-    var relativePath: String
+    var relativePath: String = "/3/search/movie"
+    var queryItems: [URLQueryItem]? = [URLQueryItem]()
 
-    init(token: TMDBToken, encodedSearchTerm: String) {
-        relativePath = "/search/movie?"
-        relativePath += "query=\(encodedSearchTerm)"
-        relativePath += "&\(token.key)=\(token.value)"
+    init(searchTerm: String) {
+        queryItems?.append(URLQueryItem(name: "api_key", value: "2a61185ef6a27f400fd92820ad9e8537"))
+        queryItems?.append(URLQueryItem(name: "query", value: searchTerm))
     }
 }

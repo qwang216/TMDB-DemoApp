@@ -10,9 +10,9 @@ import UIKit
 
 class MovieCell: BaseCell, ReusesableView {
 
-    private let titleLabel = baseLabel("Title", 20)
-    private let movieDescription = baseLabel("movie description movie description movie description movie description movie description movie", 15).setLine(0).setLineBreak(.byWordWrapping)
-    private let posterImageView = placeHolderImageView(nil)
+    private let titleLabel = baseLabel("Title", 15).setLine(2)
+    private let movieDescription = baseLabel("movie description movie description movie description movie description movie description movie", 10).setLine(0).setLineBreak(.byWordWrapping)
+    private let posterImageView = PosterImageView(nil)
 
     var movie: Movie? {
         didSet {
@@ -22,7 +22,9 @@ class MovieCell: BaseCell, ReusesableView {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        movie = nil
+        titleLabel.text = nil
+        movieDescription.text = nil
+        posterImageView.image = UIImage(named: "imagePlaceHolder")
     }
 
     override func setupView() {
@@ -46,8 +48,12 @@ class MovieCell: BaseCell, ReusesableView {
     }
 
     private func configView() {
-        titleLabel.text = movie?.title
-        movieDescription.text = movie?.overview
+        guard let validMovie = movie else { return }
+        titleLabel.text = validMovie.title
+        movieDescription.text = validMovie.overview
+        if let validPath = validMovie.posterPath {
+            posterImageView.fetchImage(url: "https://image.tmdb.org/t/p/w600_and_h900_bestv2\(validPath)")
+        }
     }
     
 }
