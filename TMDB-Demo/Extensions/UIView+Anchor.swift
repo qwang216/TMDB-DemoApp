@@ -35,6 +35,18 @@ extension UIView {
     }
 
     @discardableResult
+    func centerYSuperView(offSetY: CGFloat = 0) -> Anchor {
+        guard let currSuperView = superview else { return Anchor() }
+        let currentAnchor = Anchor()
+        translatesAutoresizingMaskIntoConstraints = false
+
+        let centerY = centerYAnchor.constraint(equalTo: currSuperView.centerYAnchor, constant: offSetY)
+        centerY.isActive = true
+        currentAnchor.centerY = centerY
+        return currentAnchor
+    }
+
+    @discardableResult
     func center(view: UIView, offSetX: CGFloat = 0, offSetY: CGFloat = 0) -> Anchor {
         translatesAutoresizingMaskIntoConstraints = false
 

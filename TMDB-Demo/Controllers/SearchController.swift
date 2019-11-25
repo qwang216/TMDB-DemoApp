@@ -27,15 +27,14 @@ class MovieViewModel: MovieViewModelable {
 
 class MovieSearchController: UIViewController {
 
-    let tableView = UITableView()
-
-    var viewModel: MovieViewModelable?
-
-    var searchController: UISearchController? {
+    private let tableView = UITableView()
+    private var searchController: UISearchController? {
         didSet {
             navigationItem.searchController = searchController
         }
     }
+
+    var viewModel: MovieViewModelable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +44,12 @@ class MovieSearchController: UIViewController {
         setupTableView()
     }
 
-    func setupSearchController() {
+    private func setupSearchController() {
         searchController = UISearchController()
         searchController?.searchBar.placeholder = viewModel?.searchBarPlaceHolder
     }
 
-    func setupTableView() {
+    private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.fillToSuperview()
@@ -60,6 +59,7 @@ class MovieSearchController: UIViewController {
 }
 
 extension MovieSearchController: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel?.movieCounts ?? 0
     }
@@ -68,6 +68,5 @@ extension MovieSearchController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueCell(indexPath: indexPath) as MovieCell
         return cell
     }
-
 
 }
