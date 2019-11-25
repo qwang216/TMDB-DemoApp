@@ -47,6 +47,7 @@ class MovieSearchController: UIViewController {
     private func setupSearchController() {
         searchController = UISearchController()
         searchController?.searchBar.placeholder = viewModel?.searchBarPlaceHolder
+        searchController?.searchBar.delegate = self
     }
 
     private func setupTableView() {
@@ -69,4 +70,11 @@ extension MovieSearchController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 
+}
+
+extension MovieSearchController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchTerm = searchBar.text else { return }
+        print(searchTerm)
+    }
 }
