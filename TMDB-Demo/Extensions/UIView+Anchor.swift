@@ -19,19 +19,10 @@ class Anchor {
     var centerY: NSLayoutConstraint?
 }
 
-
 extension UIView {
 
     func addSubviews(_ views: UIView...) {
         views.forEach{ addSubview($0) }
-    }
-
-    @discardableResult
-    func centerSuperview(offSetX: CGFloat = 0, offSetY: CGFloat = 0, size: CGSize = .zero) -> Anchor {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        guard let superview = superview else { return Anchor() }
-        return center(view: superview, offSetX: offSetX, offSetY: offSetY)
     }
 
     @discardableResult
@@ -47,48 +38,10 @@ extension UIView {
     }
 
     @discardableResult
-    func center(view: UIView, offSetX: CGFloat = 0, offSetY: CGFloat = 0) -> Anchor {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        let currentAnchor = Anchor()
-
-        let centerX = centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: offSetX)
-        centerX.isActive = true
-        currentAnchor.centerX = centerX
-
-        let centerY = centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: offSetY)
-        centerY.isActive = true
-        currentAnchor.centerY = centerY
-
-        return currentAnchor
-    }
-
-    @discardableResult
     func fillToSuperview(padding: UIEdgeInsets = .zero) -> Anchor {
 
         translatesAutoresizingMaskIntoConstraints = false
         return anchorConstrain(top: superview?.topAnchor, leading: superview?.leadingAnchor, bottom: superview?.bottomAnchor, trailing: superview?.trailingAnchor, padding: padding)
-    }
-
-    @discardableResult
-    func setAnchor(width: NSLayoutDimension? = nil, height: NSLayoutDimension? = nil, padding: CGSize = .zero) -> Anchor {
-
-        translatesAutoresizingMaskIntoConstraints = false
-        guard width != nil || height != nil else { return Anchor() }
-
-        let currcentAnchor = Anchor()
-        if let width = width {
-            let widthConstrain = widthAnchor.constraint(equalTo: width, constant: -padding.width)
-            widthConstrain.isActive = true
-            currcentAnchor.width = widthConstrain
-        }
-        if let height = height {
-            let heightConstrain = height.constraint(equalTo: height, constant: -padding.height)
-            heightConstrain.isActive = true
-            currcentAnchor.height = heightConstrain
-        }
-
-        return currcentAnchor
     }
 
     @discardableResult
