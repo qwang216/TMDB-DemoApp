@@ -21,10 +21,14 @@ class Anchor {
 
 extension UIView {
 
+    /// Helper function to add multiple views in one line
+    /// - Parameter views: list of views
     func addSubviews(_ views: UIView...) {
         views.forEach{ addSubview($0) }
     }
 
+    /// Helper function to center X superview
+    /// - Parameter offSetY: default value is 0
     @discardableResult
     func centerYSuperView(offSetY: CGFloat = 0) -> Anchor {
         guard let currSuperView = superview else { return Anchor() }
@@ -37,6 +41,8 @@ extension UIView {
         return currentAnchor
     }
 
+    /// Helper function to fill super view
+    /// - Parameter padding: default value .zero
     @discardableResult
     func fillToSuperview(padding: UIEdgeInsets = .zero) -> Anchor {
 
@@ -44,6 +50,14 @@ extension UIView {
         return anchorConstrain(top: superview?.topAnchor, leading: superview?.leadingAnchor, bottom: superview?.bottomAnchor, trailing: superview?.trailingAnchor, padding: padding)
     }
 
+    /// Helper function to add constrains for top, leading, bottom, trailing, padding, and size
+    /// - Parameters:
+    ///   - top: top anchor
+    ///   - leading: leading anchor
+    ///   - bottom: bottom anchor
+    ///   - trailing: trailing anchor
+    ///   - padding: padding is for spacing between top, leading, bottom, and trailing. Default is .zero
+    ///   - size: set size of the view. Default is .zero
     @discardableResult
     func anchorConstrain(top: NSLayoutYAxisAnchor? = nil, leading: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, trailing: NSLayoutXAxisAnchor? = nil, padding: UIEdgeInsets = .zero, size: CGSize = .zero) -> Anchor {
 

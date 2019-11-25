@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Any View conforms to ReuseableView will have an identifier as it's class name
 protocol ReusesableView { }
 extension ReusesableView where Self: Identifiable {
     static var identifier: String {

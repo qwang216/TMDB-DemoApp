@@ -8,5 +8,6 @@
 
 import UIKit
 
+/// Mark Cell that has an identifier
 protocol Identifiable {}
 extension UITableViewCell: Identifiable {}
