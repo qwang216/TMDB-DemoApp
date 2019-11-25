@@ -8,23 +8,6 @@
 
 import UIKit
 
-protocol MovieViewModelable {
-    var searchBarPlaceHolder: String { get }
-    var movieCounts: Int { get }
-
-}
-
-class MovieViewModel: MovieViewModelable {
-    var movieCounts: Int {
-        return 5
-    }
-    var dataSource = [Int]()
-    var searchBarPlaceHolder: String {
-        return "Enter Movie Title..."
-    }
-
-}
-
 class MovieSearchController: UIViewController {
 
     private let tableView = UITableView()
@@ -38,7 +21,8 @@ class MovieSearchController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = MovieViewModel()
+        viewModel = MovieViewModel(service: TMDBService())
+        viewModel?.delegate = self
         view.addSubviews(tableView)
         setupSearchController()
         setupTableView()
@@ -62,11 +46,12 @@ class MovieSearchController: UIViewController {
 extension MovieSearchController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.movieCounts ?? 0
+        return viewModel?.totalMovieCount ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(indexPath: indexPath) as MovieCell
+        cell.movie = viewModel?.movieAt(indexPath.row)
         return cell
     }
 
@@ -75,6 +60,22 @@ extension MovieSearchController: UITableViewDataSource, UITableViewDelegate {
 extension MovieSearchController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = searchBar.text else { return }
-        print(searchTerm)
+        viewModel?.fetchMovies(searchTerm: searchTerm)
     }
+}
+
+extension MovieSearchController: MovieViewModelDelegate {
+    func loadingData() {
+        print("Loading Data")
+    }
+
+    func viewModelDidFinishLoading() {
+        print("Done Loading")
+        tableView.reloadData()
+    }
+
+    func error(title: String, err: TMDBServiceError) {
+        showAlert(title: title, err)
+    }
+
 }

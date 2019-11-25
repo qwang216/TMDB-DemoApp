@@ -41,7 +41,7 @@ extension UIView {
         return currentAnchor
     }
 
-    /// Helper function to fill super view
+    /// Helper function set the constrain to fill up super view
     /// - Parameter padding: default value .zero
     @discardableResult
     func fillToSuperview(padding: UIEdgeInsets = .zero) -> Anchor {
