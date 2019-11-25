@@ -37,8 +37,8 @@
 		D4D2ECB1238C0D7100BCCB18 /* TMDBServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2ECB0238C0D7100BCCB18 /* TMDBServices.swift */; };
 		D4D2ECB4238C10DE00BCCB18 /* TMDBServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2ECB3238C10DE00BCCB18 /* TMDBServiceError.swift */; };
 		D4D2ECB9238C13A200BCCB18 /* CacheableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2ECB8238C13A200BCCB18 /* CacheableImageView.swift */; };
-		D4D2ECBB238C176300BCCB18 /* TMDBImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2ECBA238C176300BCCB18 /* TMDBImageView.swift */; };
 		D4D2ECBD238C1C4F00BCCB18 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2ECBC238C1C4F00BCCB18 /* UIViewController+Extensions.swift */; };
+		D4D2ECBF238C8BB200BCCB18 /* TMDBImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2ECBA238C176300BCCB18 /* TMDBImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,12 +131,11 @@
 			children = (
 				D4D2EC5A238BB05E00BCCB18 /* AppDelegate.swift */,
 				D4D2EC5C238BB05E00BCCB18 /* SceneDelegate.swift */,
-				D4D2ECBA238C176300BCCB18 /* TMDBImageView.swift */,
-				D4D2EC9A238C02A000BCCB18 /* Networking */,
+				D4D2EC81238BC76600BCCB18 /* Controllers */,
 				D4D2EC97238BFF2500BCCB18 /* ViewModels */,
 				D4D2EC92238BE58400BCCB18 /* Model */,
 				D4D2EC84238BC78C00BCCB18 /* Cells */,
-				D4D2EC81238BC76600BCCB18 /* Controllers */,
+				D4D2EC9A238C02A000BCCB18 /* Networking */,
 				D4D2EC7E238BBBC000BCCB18 /* Extensions */,
 				D4D2EC89238BC80800BCCB18 /* Utills */,
 				D4D2EC63238BB05F00BCCB18 /* Assets.xcassets */,
@@ -187,6 +186,7 @@
 		D4D2EC89238BC80800BCCB18 /* Utills */ = {
 			isa = PBXGroup;
 			children = (
+				D4D2ECBA238C176300BCCB18 /* TMDBImageView.swift */,
 				D4D2EC8A238BCF4A00BCCB18 /* Identifiable.swift */,
 				D4D2EC8C238BCF6C00BCCB18 /* ReuseableView.swift */,
 				D4D2EC87238BC80400BCCB18 /* Style.swift */,
@@ -390,7 +390,7 @@
 				D4D2EC8B238BCF4A00BCCB18 /* Identifiable.swift in Sources */,
 				D4D2EC88238BC80400BCCB18 /* Style.swift in Sources */,
 				D4D2EC8D238BCF6C00BCCB18 /* ReuseableView.swift in Sources */,
-				D4D2ECBB238C176300BCCB18 /* TMDBImageView.swift in Sources */,
+				D4D2ECBF238C8BB200BCCB18 /* TMDBImageView.swift in Sources */,
 				D4D2ECA0238C036400BCCB18 /* HTTPMethod.swift in Sources */,
 				D4D2EC96238BFF2200BCCB18 /* MovieViewModel.swift in Sources */,
 				D4D2EC9E238C034B00BCCB18 /* APIError.swift in Sources */,

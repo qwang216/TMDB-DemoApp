@@ -17,6 +17,7 @@ class MovieSearchController: UIViewController {
             navigationItem.hidesSearchBarWhenScrolling = false
         }
     }
+    private let activity = activityIndicator()
 
     var viewModel: MovieViewModelable?
 
@@ -27,6 +28,7 @@ class MovieSearchController: UIViewController {
         view.addSubviews(tableView)
         setupSearchController()
         setupTableView()
+        setupActivityIndicator()
     }
 
     private func setupSearchController() {
@@ -40,6 +42,12 @@ class MovieSearchController: UIViewController {
         tableView.dataSource = self
         tableView.fillToSuperview()
         tableView.register(MovieCell.self)
+    }
+
+    private func setupActivityIndicator () {
+        view.addSubview(activity)
+        activity.hidesWhenStopped = true
+        activity.centerSuperView()
     }
 
 }
@@ -71,10 +79,11 @@ extension MovieSearchController: UISearchBarDelegate {
 
 extension MovieSearchController: MovieViewModelDelegate {
     func loadingData() {
-
+        activity.startAnimating()
     }
 
     func viewModelDidFinishLoading() {
+        activity.stopAnimating()
         tableView.reloadData()
     }
 

@@ -71,7 +71,8 @@ let PosterImageView: (UIImage?) -> TMDBImageView = { image in
 // MARK: - Activity Indicator
 
 let activityIndicator: () -> UIActivityIndicatorView = {
-    let activityView = UIActivityIndicatorView(style: .whiteLarge)
-    activityView.startAnimating()
+    let activityView = UIActivityIndicatorView(style: .large)
+    activityView.backgroundColor = .lightGray
+    activityView.layer.cornerRadius = 5
     return activityView
 }

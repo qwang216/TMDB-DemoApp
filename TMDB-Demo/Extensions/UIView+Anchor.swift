@@ -27,6 +27,22 @@ extension UIView {
         views.forEach{ addSubview($0) }
     }
 
+    @discardableResult
+    func centerSuperView(offSetX: CGFloat = 0, offSetY: CGFloat = 0) -> Anchor {
+        let currAnchor = Anchor()
+        guard let validSuperView = superview else { return currAnchor }
+        translatesAutoresizingMaskIntoConstraints = false
+        let centerX = centerXAnchor.constraint(equalTo: validSuperView.centerXAnchor, constant: offSetX)
+        centerX.isActive = true
+        currAnchor.centerX = centerX
+
+        let centerY = centerYAnchor.constraint(equalTo: validSuperView.centerYAnchor, constant: offSetY)
+        centerY.isActive = true
+        currAnchor.centerY = centerY
+
+        return currAnchor
+    }
+
     /// Helper function to center X superview
     /// - Parameter offSetY: default value is 0
     @discardableResult
